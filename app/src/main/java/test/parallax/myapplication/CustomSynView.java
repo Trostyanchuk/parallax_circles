@@ -3,11 +3,15 @@ package test.parallax.myapplication;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 
 public class CustomSynView extends View {
 
@@ -65,10 +69,13 @@ public class CustomSynView extends View {
         for (int time = 0; time < 8; time++) {
 
             int circleRectHeight = 505;
-            //hardcoded center
-            float x = 540;
-            float y = 696;
-            float radius = circleRectHeight / 2f;
+            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            float x = size.x / 2;
+            float y = size.y / 2;
+            float radius = x / 2f;
             float angleOffset = 0;
             float angle;
             float angleStep = 0.005f;
@@ -86,7 +93,7 @@ public class CustomSynView extends View {
                     pointsYTime[time][index][i] = dy;
                 }
                 circleRectHeight += 120;
-                radius = circleRectHeight / 2 + index * 6;
+                radius = x / 2 + index * 6;
                 angleOffset += 0.1f;
             }
             makeAnimationStep();
@@ -144,18 +151,25 @@ public class CustomSynView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
         for (int index = 0; index < CIRCLES; index++) {
-            for (int i = 0; i < pointsSize; i++) {
-                canvas.drawPoint(pointsXTime[time][index][i], pointsYTime[time][index][i], linePaint);
+            Path path = new Path();
+            path.moveTo(pointsXTime[time][index][0], pointsYTime[time][index][0]);
+            for (int i = 1; i < pointsSize; i++) {
+                path.lineTo(pointsXTime[time][index][i], pointsYTime[time][index][i]);
             }
+            canvas.drawPath(path, linePaint);
         }
 
         time++;
         if (time == 8) {
             time = 0;
         }
-        invalidate();
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                invalidate();
+            }
+        }, 50);
     }
 
 //
