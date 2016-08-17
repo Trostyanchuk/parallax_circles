@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context="test.parallax.myapplication.MainActivity">
+
+    <test.parallax.myapplication.CustomView
+        android:id="@+id/custom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <test.parallax.myapplication.CustomSynView
+        android:id="@+id/custom_sync"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <test.parallax.myapplication.CustomSynView2
+        android:id="@+id/custom_sync2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <test.parallax.myapplication.CustomSynView3
+        android:id="@+id/custom_sync3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <test.parallax.myapplication.CustomCircles
+        android:id="@+id/circles_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@drawable/bg_gradient" />-->
+</RelativeLayout>
